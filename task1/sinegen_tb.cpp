@@ -12,19 +12,20 @@ int main(int argc, char** argv) {
     // init top verilog instance
 
     TestBench::Simulator<Vsinegen> sim(config.vcd_file, config.num_levels, config.trace);
-    Vbuddy vbuddy("Task 1: Cos Wave");
+    Vbuddy vbuddy("Task 2: Dual Cosine and Sine Wave");
 
     sim->clk = 1;
     sim->rst = 0;
     sim->en = 1;
-    sim->incr = 1;
+    
         // run simulation for many clock cycles
     for (size_t cycle = 0; config.should_stop(cycle); cycle++) {
         // dump variables into VCD file and toggle clock 
+        sim->incr = vbdValue();
         sim->ld = (cycle == 0);
 
         vbdPlot(sim->out, 0, 255);
         sim.tick(cycle);
-        if (Verilated::gotFinish()) break;
+        if (Verilated::gotFinish() || vbdGetkey() == 'q') break;
     }
 }

@@ -17,13 +17,14 @@ module top(
         .rst(rst),
         .ld(ld),
         .data(incr),
+        .incr(incr),
         .count(addr)
     );
 
     rom #(
         .DATA_WIDTH(8),
         .ADDR_WIDTH(8),
-        .INIT_FILE("sinerom.mem")
+        .INIT_FILE("../../task1/sinerom.mem")
     ) u_rom (
         .clk(clk),
         .addr(addr),

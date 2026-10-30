@@ -25,3 +25,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 add_subdirectory(task1)
+add_subdirectory(task2)

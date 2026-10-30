@@ -16,7 +16,7 @@ shift 2
 TARGET="task${TASK_NUM}_${MODULE_NAME}"
 TASK_FOLDER="./build/task${TASK_NUM}"
 
-[ -f "task${TASK_NUM}/${MODULE_NAME}.py" ] && uv run python script.py
+[ -f "task${TASK_NUM}/${MODULE_NAME}.py" ] && uv run python task${TASK_NUM}/${MODULE_NAME}.py
 mkdir -p "$TASK_FOLDER"
 # Build the executable.
 cmake --build build --target "$TARGET"

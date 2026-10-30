@@ -4,10 +4,10 @@ from pathlib import Path
 path = "task1/sinerom.mem"
 file = Path(path)
 
-ROM_WIDTH = 8
+DATA_WIDTH = 8
 ADDRESS_SIZE = 8
 ROM_DEPTH = 1 << ADDRESS_SIZE
-ROM_MAX = 1 << ROM_WIDTH 
+ROM_MAX = 1 << DATA_WIDTH 
 
 def scale(v):
     AMPLITUDE = (ROM_MAX / 2) - 1
@@ -24,8 +24,6 @@ with file.open("w") as f:
     for i in range(ROM_DEPTH):
         
         v = math.cos(2*math.pi* i / ROM_DEPTH)
-        print(v)
-        
+
         v = int(scale(v))
-        print(v)
         f.write(get_hex_string(v, i))
