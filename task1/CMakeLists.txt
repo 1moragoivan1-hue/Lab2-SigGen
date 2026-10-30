@@ -1,1 +1,1 @@
-add_scoped_executable(sinegen)
+add_scoped_executable(sinegen counter rom)
