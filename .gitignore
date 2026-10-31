@@ -7,3 +7,4 @@ task1/obj_dir/
 
 *.vcd
 .venv/
+.clangd

@@ -5,8 +5,10 @@ module rom #(
     parameter INIT_FILE = ""
 ) (
     input logic                     clk,
-    input logic [ADDR_WIDTH-1:0]    addr,
-    output logic [DATA_WIDTH-1:0]   data
+    input logic [ADDR_WIDTH-1:0]    addr1,
+    input logic [ADDR_WIDTH-1:0]    addr2,
+    output logic [DATA_WIDTH-1:0]   data1,
+    output logic [DATA_WIDTH-1:0]   data2
 );
     logic [DATA_WIDTH-1:0] rom_arr [NUM_WORDS-1:0];
 
@@ -15,7 +17,8 @@ module rom #(
     end
 
     always_ff @(posedge clk) begin
-        data <= rom_arr[addr];
+        data1 <= rom_arr[addr1];
+        data2 <= rom_arr[addr2];
     end
     
 endmodule

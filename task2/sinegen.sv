@@ -11,8 +11,6 @@ module sinegen (
 
     logic [7:0] addr1;
     logic [7:0] addr2;
-
-    // Address for second wave = base count + phase offset
     assign addr2 = addr1 + offset;
 
     // Single shared counter
@@ -32,20 +30,12 @@ module sinegen (
         .DATA_WIDTH(8),
         .ADDR_WIDTH(8),
         .INIT_FILE("../../task2/sinerom.mem")
-    ) u_rom1 (
-        .clk  (clk),
-        .addr (addr1),
-        .data (out1)
-    );
-
-    rom #(
-        .DATA_WIDTH(8),
-        .ADDR_WIDTH(8),
-        .INIT_FILE("../../task2/sinerom.mem")
-    ) u_rom2 (
-        .clk  (clk),
-        .addr (addr2),
-        .data (out2)
+    ) u_rom (
+        .clk    (clk),
+        .addr1  (addr1),
+        .addr2  (addr2),
+        .data1  (out1),
+        .data2  (out2)
     );
 
 endmodule

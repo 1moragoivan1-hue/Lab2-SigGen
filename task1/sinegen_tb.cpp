@@ -7,25 +7,18 @@ int main(int argc, char** argv) {
 
     TestBench::TBConfig config{};
     config.setup(app, __FILE__);
-    CLI11_PARSE(app, argc, argv);
-    Verilated::commandArgs(argc,argv);
-    // init top verilog instance
+    config.parse_args(argc, argv);
 
-    TestBench::Simulator<Vsinegen> sim(config.vcd_file, config.num_levels, config.trace);
+    TestBench::Simulator<Vsinegen> sim(&config);
     Vbuddy vbuddy("Task 2: Dual Cosine and Sine Wave");
 
     sim->clk = 1;
     sim->rst = 0;
     sim->en = 1;
-    
-        // run simulation for many clock cycles
-    for (size_t cycle = 0; config.should_stop(cycle); cycle++) {
-        // dump variables into VCD file and toggle clock 
-        sim->incr = vbdValue();
-        sim->ld = (cycle == 0);
+    sim->ld = 0;
 
-        vbdPlot(sim->out, 0, 255);
-        sim.tick(cycle);
-        if (Verilated::gotFinish() || vbdGetkey() == 'q') break;
-    }
+    sim.run([&](size_t cycle) {
+        sim->incr = vbuddy.value();
+        vbuddy.plot(sim->out, Vbuddy::PlotRange::uint8());
+    }, &vbuddy);
 }
